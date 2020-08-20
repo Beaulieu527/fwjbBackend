@@ -1,17 +1,39 @@
-const express = require('express');
-const bodyParser = require("body-parser");
-const ejs = require("ejs");
-const mongoose = require("mongoose");
+var express = require('express')
+var app = express()
+const cors = require('cors')
+app.use(cors())
+var http = require('http').createServer(app);
+
+// require('dotenv/config') you might want to have dotenv npm. Please look it up.
+
+const mongoose = require('mongoose')
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 
-const app = express();
+mongoose.connect(
+  process.env.MONGODB_URI,{  
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+},()=>console.log('connected to DB')
+)
 
-app.get('/', (req, res) => {
-    
-});
+mongoose.set('useFindAndModify', false)
 
-app.listen(3000, function() {
-    console.log("Server started on port 3000.");
+if (process.env.NODE_ENV === 'production') {
+
+  app.use(express.static('client/build'));
+
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
+}
 
-//npm start, open your browser and run localhost:port
+const PORT = process.env.PORT || 80;
+  
+http.listen(PORT, function(){
+  console.log('listening on *:80');
+});
