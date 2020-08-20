@@ -4,7 +4,7 @@ const cors = require('cors')
 app.use(cors())
 var http = require('http').createServer(app);
 
-// require('dotenv/config') you might want to have dotenv npm. Please look it up.
+require('dotenv/config') 
 
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser');
