@@ -12,13 +12,13 @@ exports.create = (req, res) => {
 
   // Create a User
   const user = new User({
-    userName: req.body.name,
     email: req.body.email,
+    userName: req.body.name,
   });
 
   // Save User in the database
   user
-    .save(User)
+    .save(user)
     .then((data) => {
       res.send(data);
     })
@@ -30,21 +30,25 @@ exports.create = (req, res) => {
 };
 // Retrieve all Users from the database by User Name.
 exports.findAll = (req, res) => {
-  const name = req.query.name;
-  var condition = 
-    ? { userName: { $regex: new RegExp(name), $options: "i" } }
-    : {};
 
-  User.find(condition)
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving Users.",
-      });
-    });
+  User.find( function(err, foundUsers){
+    if (err){
+      console.log(err);
+    } else {
+        res.send(foundUsers);
+    }
+  });
+
+//   User.find()
+//     .then((data) => {
+//       res.send(data);
+//     })
+//     .catch((err) => {
+//       res.status(500).send({
+//         message:
+//           err.message || "Some error occurred while retrieving Users.",
+//       });
+//     });
 };
 
 // Find a single User with an id
@@ -73,14 +77,16 @@ exports.update = (req, res) => {
       }
     
       const id = req.params.id;
-    
+      
       User.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
         .then(data => {
           if (!data) {
             res.status(404).send({
               message: `Cannot update User with id=${id}. Maybe User was not found!`
             });
-          } else res.send({ message: "User was updated successfully." });
+          } else {
+              res.send("Successfully updated User");
+          }
         })
         .catch(err => {
           res.status(500).send({
