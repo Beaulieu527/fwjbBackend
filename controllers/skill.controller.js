@@ -11,8 +11,7 @@ exports.create = (req, res) => {
   
     // Create a Skill
     const skill = new Skill({
-      name: req.body.name,
-      email: req.body.email,
+      name: req.body.name
     });
   
     // Save Skill in the database
