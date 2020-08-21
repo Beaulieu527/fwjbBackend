@@ -1,9 +1,3 @@
-//julian code
-// module.exports = {
-//   User: require("./user"),
-//   Skill: require("./skill")
-// };
-
 const dbConfig = require("../config/db.config.js");
 
 const mongoose = require("mongoose");

@@ -32,15 +32,13 @@ db.mongoose
     process.exit();
   });
 
-// simple route
+// home route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to FWJB API." });
 });
 
-require("./routes/skill.routes")(app);
-require("./routes/user.routes")(app);
 
-
+require("./routes")(app)
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
