@@ -1,5 +1,6 @@
 const db = require("../model");
-const Skill = db.skill;
+const skillRoutes = require("../routes/skill.routes");
+const Skill = db.skills;
 
 // Create and Save a new User
 exports.create = (req, res) => {
@@ -8,6 +9,8 @@ exports.create = (req, res) => {
       res.status(400).send({ message: "Name can not be empty!" });
       return;
     }
+    //check if skill exists
+
   
     // Create a Skill
     const skill = new Skill({
@@ -16,7 +19,7 @@ exports.create = (req, res) => {
   
     // Save Skill in the database
     skill
-      .save(Skill)
+      .save(skill)
       .then((data) => {
         res.send(data);
       })
@@ -28,20 +31,12 @@ exports.create = (req, res) => {
   };
   // Retrieve all Skills from the database by Skill Name.
   exports.findAll = (req, res) => {
-    const name = req.query.name;
-    var condition = 
-      ? { name: { $regex: new RegExp(name), $options: "i" } }
-      : {};
-  
-    Skill.find(condition)
-      .then((data) => {
-        res.send(data);
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving Skills.",
-        });
+    Skill.find( function(err, foundSkills){
+        if (err){
+          console.log(err);
+        } else {
+            res.send(foundSkills);
+        }
       });
   };
   
@@ -78,7 +73,7 @@ exports.create = (req, res) => {
               res.status(404).send({
                 message: `Cannot update Skill with id=${id}. Maybe Skill was not found!`
               });
-            } else res.send({ message: "Skill was updated successfully." });
+            } else res.send(data);
           })
           .catch(err => {
             res.status(500).send({

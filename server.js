@@ -4,7 +4,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-const db = require("./app/models");
+const db = require("./model");
 
 var corsOptions = {
   origin: "http://localhost:8081"
@@ -37,7 +37,9 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to FWJB API." });
 });
 
-require("./app/routes/turorial.routes")(app);
+require("./routes/skill.routes")(app);
+require("./routes/user.routes")(app);
+
 
 
 // set port, listen for requests
