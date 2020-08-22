@@ -1,5 +1,11 @@
+const session = require("express-session");
+const passport = require("passport");
+const passportLocalMongoose = require("passport-local-mongoose");
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const findOrCreate = require("mongoose-findorcreate");
+
 module.exports = mongoose => {
-  var schema = mongoose.Schema(
+  var userSchema = mongoose.Schema(
     {
       googleId:String,
       userId:String,
@@ -12,17 +18,16 @@ module.exports = mongoose => {
     { timestamps: true }
   );
 
-  schema.method("toJSON", function() {
+  userSchema.method("toJSON", function() {
     const { __v, _id, ...object } = this.toObject();
     object.id = _id;
     return object;
   });
-
+  
   //hash and salt users and save to db
   userSchema.plugin(passportLocalMongoose);
   userSchema.plugin(findOrCreate);
-
-  const User = mongoose.model("user", schema);
+  const User = mongoose.model("user", userSchema);
 
   passport.use(User.createStrategy());
  
@@ -51,6 +56,9 @@ module.exports = mongoose => {
   }
   ));
 
+
+
+  
   return User;
 };
 
