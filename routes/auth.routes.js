@@ -3,53 +3,15 @@ module.exports = app => {
   
     var router = require("express").Router();
   
-    // Create a new users
-    app.get('/auth/google',
-    passport.authenticate('google', { scope: ['profile'] }));  
+    router.get('/google',auth.authenticate);  
 
-    app.get("/logout",function(req,res){
-        req.logout();
-        res.redirect("/");
-    });
+    router.get("/logout",auth.logout);
     
-    app.post("/register",function(req,res){
-        User.register({username:req.body.username},req.body.password,function(err,user){
-            if(err){
-                console.log(err);
-                res.redirect("/register");
-            }else{
-                passport.authenticate("local")(req,res,function(){
-                    user.secret="My Secret is...";
-                    user.save(function(){
-                        res.redirect("/secrets");
-                    })
-                })
-            }
-        })
-    
-    });
+    router.post("/register",auth.register);
 
-    app.get('/auth/google/secrets', 
-    passport.authenticate('google', { failureRedirect: '/login' }),
-    function(req, res) {
-        // Successful authentication, redirect secrets.
-        res.redirect('/secrets');
-    });
-    
-    app.post("/login",function(req,res){
-        const user = new User({
-            username:req.body.username,
-            password:req.body.password
-        })
-        req.login(user,function(err){
-            if(err){
-                console.log(err);
-            }else{
-                passport.authenticate("local")(req,res,function(){
-                    res.redirect("/secrets");
-                });
-            }
-        })
-    
-    });
-  };
+    router.post("/login",auth.login);
+
+    app.use('/auth', router);
+
+
+}
