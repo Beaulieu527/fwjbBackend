@@ -14,7 +14,7 @@ const findOrCreate = require("mongoose-findorcreate");
 const db = require("./model");
 
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: process.env.MONGODB_URI
 };
 
 // app.use(cors())

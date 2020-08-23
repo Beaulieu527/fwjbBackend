@@ -1,5 +1,5 @@
 const db = require("../model");
-const userRoutes = require("../routes/user.routes");
+// const userRoutes = require("../routes/user.routes");
 const User = db.users;
 
 // Create and Save a new User

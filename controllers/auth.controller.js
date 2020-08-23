@@ -1,4 +1,4 @@
-const authRoutes = require("../routes/auth.routes");
+// const authRoutes = require("../routes/auth.routes");
 
 exports.login = (req,res)=>{
     const user = new User({

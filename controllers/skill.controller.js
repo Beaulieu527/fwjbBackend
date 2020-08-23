@@ -1,5 +1,5 @@
 const db = require("../model");
-const skillRoutes = require("../routes/skill.routes");
+// const skillRoutes = require("../routes/skill.routes");
 const Skill = db.skills;
 
 // Create and Save a new skill

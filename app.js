@@ -1,12 +1,10 @@
+require('dotenv').config();
 var express = require('express')
 var app = express()
-const cors = require('cors')
+const cors = require('cors')c
 app.use(cors())
 var http = require('http').createServer(app);
 
-
-
-require(`dotenv/config`) 
 
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser');
