@@ -39,16 +39,6 @@ exports.findAll = (req, res) => {
     }
   });
 
-//   User.find()
-//     .then((data) => {
-//       res.send(data);
-//     })
-//     .catch((err) => {
-//       res.status(500).send({
-//         message:
-//           err.message || "Some error occurred while retrieving Users.",
-//       });
-//     });
 };
 
 // Find a single User with an id

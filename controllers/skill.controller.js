@@ -2,7 +2,7 @@ const db = require("../model");
 const skillRoutes = require("../routes/skill.routes");
 const Skill = db.skills;
 
-// Create and Save a new User
+// Create and Save a new skill
 exports.create = (req, res) => {
     // Validate request
     if (!req.body.name) {

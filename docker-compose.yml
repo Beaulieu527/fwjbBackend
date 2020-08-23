@@ -1,0 +1,21 @@
+version: '3'
+services:
+  api:
+    image: fwjb-api
+    build: .
+    networks:
+      - backend
+    ports:
+      - "8080:8080"
+    volumes:
+    - ./:/usr/src/app
+
+  web-cli:
+    image: fwjb-api
+    networks:
+      - backend
+    command: sh
+
+networks:
+  backend:
+    driver: bridge
