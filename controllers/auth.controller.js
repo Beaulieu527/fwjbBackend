@@ -35,9 +35,10 @@ exports.register=(req,res)=>{
             res.redirect("/register");
         }else{
             passport.authenticate("local")(req,res,function(){
-                user.secret="My Secret is...";
+                // user.secret="My Secret is...";
                 user.save(function(){
-                    res.redirect("/secrets");
+                    res.json(user)
+                    // res.redirect("/auth/loginsuccess");
                 })
             })
         }

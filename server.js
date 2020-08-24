@@ -34,20 +34,25 @@ app.use(passport.session());
 
 db.mongoose
   .connect(db.url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+    // useNewUrlParser: true,
+    // useUnifiedTopology: true,
+
   })
   .then(() => {
-    console.log("Connected to the database!");
+    if (process.env.NODE_ENV !== 'test') {
+      console.log("Connected to the database!");
+    }
   })
   .catch(err => {
+
     console.log("Cannot connect to the database!", err);
+
     process.exit();
   });
 
 // home route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to FWJB API." });
+  res.json({ message: "Welcome to FWJB API!" });
 });
 
 

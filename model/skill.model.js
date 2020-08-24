@@ -15,6 +15,6 @@ module.exports = mongoose => {
     return object;
   });
 
-  const Skill = mongoose.model("skill", schema);
+  const Skill = mongoose.model("Skill", schema);
   return Skill;
 };
