@@ -31,10 +31,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-
+console.log(db);
 db.mongoose
   .connect(db.url, {
-    // useNewUrlParser: true,
+    useNewUrlParser: true,
     // useUnifiedTopology: true,
 
   })

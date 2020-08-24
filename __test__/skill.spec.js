@@ -1,6 +1,6 @@
 // skill.spec.js
 const supertest = require('supertest');
-// const { setupDB } = require("../test-setup");
+const { setupDB } = require("../test-setup");
 const app = require('../server');
 
 
