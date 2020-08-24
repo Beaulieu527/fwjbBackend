@@ -5,7 +5,7 @@ const User = db.users;
 // Create and Save a new User
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.name) {
+  if (!req.body.username) {
     res.status(400).send({ message: "Name can not be empty!" });
     return;
   }
@@ -13,7 +13,7 @@ exports.create = (req, res) => {
   // Create a User
   const user = new User({
     email: req.body.email,
-    username: req.body.name,
+    username: req.body.username,
     skills:req.body.skills,
     interests:req.body.interests,
     name:req.body.name,
