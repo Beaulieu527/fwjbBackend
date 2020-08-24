@@ -10,6 +10,7 @@ exports.login = (req,res)=>{
             console.log(err);
         }else{
             passport.authenticate("local")(req,res,function(){
+                res.send("Login Successful")
                 
                 // res.redirect("/secrets");
             });

@@ -21,7 +21,7 @@ exports.create = (req, res) => {
     skill
       .save(skill)
       .then((data) => {
-        res.send(data);
+        res.json(data);
       })
       .catch((err) => {
         res.status(500).send({
@@ -35,7 +35,7 @@ exports.create = (req, res) => {
         if (err){
           console.log(err);
         } else {
-            res.send(foundSkills);
+            res.json(foundSkills);
         }
       });
   };
@@ -48,7 +48,7 @@ exports.create = (req, res) => {
         .then(data => {
           if (!data)
             res.status(404).send({ message: "Not found Skill with id " + id });
-          else res.send(data);
+          else res.json(data);
         })
         .catch(err => {
           res

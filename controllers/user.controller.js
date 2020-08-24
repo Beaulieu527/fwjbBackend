@@ -14,13 +14,16 @@ exports.create = (req, res) => {
   const user = new User({
     email: req.body.email,
     userName: req.body.name,
+    skills:req.body.skills,
+    interests:req.body.interests,
+    name:req.body.name,
   });
 
   // Save User in the database
   user
     .save(user)
     .then((data) => {
-      res.send(data);
+      res.json(data);
     })
     .catch((err) => {
       res.status(500).send({
@@ -35,7 +38,7 @@ exports.findAll = (req, res) => {
     if (err){
       console.log(err);
     } else {
-        res.send(foundUsers);
+        res.json(foundUsers);
     }
   });
 
@@ -49,7 +52,7 @@ exports.findOne = (req, res) => {
       .then(data => {
         if (!data)
           res.status(404).send({ message: "Not found User with id " + id });
-        else res.send(data);
+        else res.json(data);
       })
       .catch(err => {
         res
