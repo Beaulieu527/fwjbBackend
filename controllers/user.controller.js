@@ -13,7 +13,7 @@ exports.create = (req, res) => {
   // Create a User
   const user = new User({
     email: req.body.email,
-    userName: req.body.name,
+    username: req.body.name,
     skills:req.body.skills,
     interests:req.body.interests,
     name:req.body.name,

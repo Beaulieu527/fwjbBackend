@@ -9,7 +9,7 @@ module.exports = mongoose => {
     {
       googleId:String,
       userId:String,
-      userName:String,
+      username:String,
       skills:[String],
       interests:[String],
       email: String,
