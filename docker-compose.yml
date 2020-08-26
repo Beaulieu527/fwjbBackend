@@ -9,8 +9,7 @@ services:
       - webappnetwork
     ports:
       - "8080:8080"
-    depends_on:
-      - mongodb
+    
     volumes:
     - ./:/usr/src/app
   fwjb:
@@ -27,17 +26,7 @@ services:
         - CHOKIDAR_USEPOLLING=true
     networks:
       - webappnetwork
-  mongodb:
-    image: mongo
-    restart: always
-    container_name: mongodb
-    volumes:
-        - ./data-node:/data/db
-    ports:
-        - 27017:27017
-    command: mongod
-    networks:
-        - webappnetwork
+
 
 networks:
   webappnetwork:

@@ -18,8 +18,17 @@ module.exports = app => {
     // Delete a users with id
     router.delete("/:id", users.delete);
 
+    // Retrieve all skills of a user  
     router.get("/:id/skills",users.getUserSkills)
+
+    // Retrieve all interests of a user  
     router.get("/:id/interests",users.getUserInterests)
+
+    // Post a new skill to a user
+    router.post("/:id/skills/",users.addSkillToUser);
+
+    // Post a new interest to a user
+    router.post("/:id/interests",users.getUserInterests);
 
     app.use('/api/users', router);
   };

@@ -112,20 +112,26 @@ exports.delete = (req, res) => {
 };
 
 //add skill to user
-exports.addSkillToUser =(req,res)=>  {
-  const userId = req.params.id;
-  const skill = req.params.skill;
-  return User.findByIdAndUpdate(
-    userId,
-    { $push: { skills: skill._id } },
-    { new: true, useFindAndModify: false }
-  );
+exports.addSkillToUser =async (req,res)=>  {
+  let userId = req.params.id;
+  let skillId = req.params.skill;
+  
+  let updatedUser = await User.findByIdAndUpdate(
+     userId,
+     { $push: { skills: skillId} },
+     { new: true, useFindAndModify: false }
+   )
+   updatedUser = await User.findOne({_id: userId});
+   res.send(updatedUser);
+
+
+  
 };
 
 //add interest to user
 exports.addInterestToUser = (req,res)=> {
-  const userId = req.params.id;
-  const interest = req.params.interest;
+  let userId = req.params.id;
+  let interest = req.params.interest;
 
   return User.findByIdAndUpdate(
     tagId,
@@ -136,7 +142,10 @@ exports.addInterestToUser = (req,res)=> {
 
 exports.getUserSkills =(req,res)=> {
   const userId = req.params.id;
-  return User.findById(userId).populate("skills");
+  
+  res.json(
+    User.findById(userId).populate("skills")
+  ) 
 };
 
 exports.getUserInterests =(req,res)=> {
