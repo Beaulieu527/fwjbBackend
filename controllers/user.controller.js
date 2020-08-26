@@ -112,34 +112,36 @@ exports.delete = (req, res) => {
 };
 
 //add skill to user
-exports.addSkillToUser =async (req,res)=>  {
+exports.addSkillToUser = (req,res)=>  {
   let userId = req.params.id;
-  let skillId = req.params.skill;
-  
-  let updatedUser = await User.findByIdAndUpdate(
-     userId,
-     { $push: { skills: skillId} },
-     { new: true, useFindAndModify: false }
-   )
-   updatedUser = await User.findOne({_id: userId}).then(p=>{
-     console.log(p);
-   })
-   res.send(updatedUser);
+  let skill = req.body.skill;
+  var userToUpdate = User.findOne({_id: userId},function(err,foundUser){
+    if(err)
+      return err;
+    else{
+      foundUser.skills.push({_id:skill});
+      foundUser.save();
+      res.json(foundUser);
+    }
 
-
+  });
   
 };
 
 //add interest to user
 exports.addInterestToUser = (req,res)=> {
   let userId = req.params.id;
-  let interest = req.params.interest;
+  let interest = req.body.interest;
 
-  return User.findByIdAndUpdate(
-    tagId,
-    { $push: { interests: interest._id } },
-    { new: true, useFindAndModify: false }
-  );
+  var userToUpdate = User.findOne({_id: userId},function(err,foundUser){
+    if(err)
+      return err;
+    else{
+      foundUser.interests.push({_id:interests});
+      foundUser.save();
+      res.json(foundUser);
+    }
+  });
 };
 
 exports.getUserSkills =(req,res)=> {
