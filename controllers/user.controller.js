@@ -110,3 +110,26 @@ exports.delete = (req, res) => {
         });
       });
 };
+
+//add skill to user
+const addSkillToUser = function(userId , skill) {
+  return db.User.findByIdAndUpdate(
+    userId,
+    { $push: { skills: skill._id } },
+    { new: true, useFindAndModify: false }
+  );
+};
+
+//add interest to user
+const addInterestToUser = function(userId, interest) {
+  return db.User.findByIdAndUpdate(
+    tagId,
+    { $push: { interests: interest._id } },
+    { new: true, useFindAndModify: false }
+  );
+};
+
+exports.getUserWithPopulate =(req,res)=> {
+  const userId = req.params.id;
+  return db.User.findById(userId).populate("skills", "-_id -__v -users");
+};

@@ -105,3 +105,8 @@ exports.create = (req, res) => {
         });
   };
   
+
+  exports.getSkillWithPopulate =(req,res)=> {
+    const skillId = req.params.id;
+    return db.Skill.findById(skillId).populate("users", "-_id -__v -skills");
+  };

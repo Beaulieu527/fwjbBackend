@@ -17,6 +17,8 @@ module.exports = app => {
   
     // Delete a users with id
     router.delete("/:id", users.delete);
+
+    router.get("/:id/skills",users.getUserWithPopulate)
     
     app.use('/api/users', router);
   };
