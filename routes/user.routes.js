@@ -28,7 +28,7 @@ module.exports = app => {
     router.post("/:id/skills/",users.addSkillToUser);
 
     // Post a new interest to a user
-    router.post("/:id/interests",users.getUserInterests);
+    router.post("/:id/interests/",users.getUserInterests);
 
     app.use('/api/users', router);
   };
