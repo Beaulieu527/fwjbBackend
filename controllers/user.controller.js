@@ -112,8 +112,10 @@ exports.delete = (req, res) => {
 };
 
 //add skill to user
-const addSkillToUser = function(userId , skill) {
-  return db.User.findByIdAndUpdate(
+exports.addSkillToUser =(req,res)=>  {
+  const userId = req.params.id;
+  const skill = req.params.skill;
+  return User.findByIdAndUpdate(
     userId,
     { $push: { skills: skill._id } },
     { new: true, useFindAndModify: false }
@@ -121,15 +123,27 @@ const addSkillToUser = function(userId , skill) {
 };
 
 //add interest to user
-const addInterestToUser = function(userId, interest) {
-  return db.User.findByIdAndUpdate(
+exports.addInterestToUser = (req,res)=> {
+  const userId = req.params.id;
+  const interest = req.params.interest;
+
+  return User.findByIdAndUpdate(
     tagId,
     { $push: { interests: interest._id } },
     { new: true, useFindAndModify: false }
   );
 };
 
-exports.getUserWithPopulate =(req,res)=> {
+exports.getUserSkills =(req,res)=> {
   const userId = req.params.id;
-  return db.User.findById(userId).populate("skills", "-_id -__v -users");
+  return User.findById(userId).populate("skills");
+};
+
+exports.getUserInterests =(req,res)=> {
+  // console.log(req.params);
+  const userId = req.params.id;
+  console.log(userId);
+  res.json(
+    User.findById(userId).populate("interests")
+    )
 };
