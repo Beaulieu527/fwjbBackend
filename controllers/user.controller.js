@@ -121,7 +121,9 @@ exports.addSkillToUser =async (req,res)=>  {
      { $push: { skills: skillId} },
      { new: true, useFindAndModify: false }
    )
-   updatedUser = await User.findOne({_id: userId});
+   updatedUser = await User.findOne({_id: userId}).then(p=>{
+     console.log(p);
+   })
    res.send(updatedUser);
 
 
