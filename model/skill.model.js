@@ -6,7 +6,7 @@ module.exports = mongoose => {
       users: [
         {
           type: mongoose.Schema.Types.ObjectId,
-          ref: "User"
+          ref: "user"
         }
       ],
       createdAt: String,

@@ -1,6 +1,8 @@
 const db = require("../model");
+
 // const userRoutes = require("../routes/user.routes");
 const User = db.users;
+const Skill = db.skills;
 
 // Create and Save a new User
 exports.create = (req, res) => {
@@ -114,14 +116,48 @@ exports.delete = (req, res) => {
 //add skill to user
 exports.addSkillToUser = (req,res)=>  {
   let userId = req.params.id;
-  let skill = req.body.skill;
-  var userToUpdate = User.findOne({_id: userId},function(err,foundUser){
+  let skill = req.body;
+  
+  let userToUpdate = User.findOne({_id: userId},
+    function(err,foundUser){
     if(err)
       return err;
     else{
-      foundUser.skills.push({_id:skill});
-      foundUser.save();
-      res.json(foundUser);
+      console.log("adding skill:"+skill)
+      if(skill.id){
+        let skillToAdd = Skill.findOne({_id:skill.id},
+          function(err, foundSkill){
+            if(err){
+              res.send(err)
+            }
+            else{
+              foundUser.skills.push({_id:skillToAdd.id});
+              foundUser.save();
+              res.json(foundUser);
+              return foundSkill
+              
+            }
+            
+          })
+
+      }
+      else{
+        const newSkill = new Skill({
+          name: skill.name,
+          
+        });
+        newSkill.users.push(foundUser)
+        newSkill.save()
+        foundUser.skills.push(newSkill)
+        foundUser.save()
+        console.log("saved skill"+newSkill)
+        console.log("saved user"+foundUser)
+        res.send({"message":"succesfully added skill to user"})
+        
+      
+       
+
+      }
     }
 
   });
@@ -146,17 +182,28 @@ exports.addInterestToUser = (req,res)=> {
 
 exports.getUserSkills =(req,res)=> {
   const userId = req.params.id;
-  
-  res.json(
-    User.findById(userId).populate("skills")
-  ) 
+  User.findById(userId)
+      .then(data => {
+        if (!data)
+          res.status(404).send({ message: "Not found User with id " + id });
+        else 
+          res.json(data.populate('skills')  )        
+          
+        })
+        // res.json(data.populate('skills'));
+  // res.send(User.findOne({_id:userId}).skills)
+
 };
 
 exports.getUserInterests =(req,res)=> {
   // console.log(req.params);
   const userId = req.params.id;
-  console.log(userId);
-  res.json(
-    User.findById(userId).populate("interests")
-    )
+
+  User.findOne({_id: userId},function(err,foundUser){
+    if(err)
+      return err;
+    else{
+      res.json(foundUser.populate("interests"));
+    }
+  })
 };

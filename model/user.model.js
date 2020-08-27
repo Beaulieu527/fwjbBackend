@@ -13,13 +13,13 @@ module.exports = mongoose => {
       skills: [
         {
           type: mongoose.Schema.Types.ObjectId,
-          ref: "Skill"
+          ref: "skill"
         }
       ],
       interests: [
         {
           type: mongoose.Schema.Types.ObjectId,
-          ref: "Skill"
+          ref: "skill"
         }
       ],
       email: String,
