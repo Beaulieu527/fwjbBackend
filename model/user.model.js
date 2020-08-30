@@ -10,8 +10,18 @@ module.exports = mongoose => {
       googleId:String,
       userId:String,
       username:String,
-      skills:[String],
-      interests:[String],
+      skills: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "skill"
+        }
+      ],
+      interests: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "skill"
+        }
+      ],
       email: String,
       createdAt: String,
     },

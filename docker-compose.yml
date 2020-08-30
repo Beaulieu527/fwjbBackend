@@ -1,21 +1,33 @@
 version: '3'
 services:
   api:
-    image: fwjb-api
-    build: .
+    image: mistermur/fwjb-api
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     networks:
-      - backend
+      - webappnetwork
     ports:
       - "8080:8080"
+    
     volumes:
     - ./:/usr/src/app
-
-  web-cli:
-    image: fwjb-api
+  fwjb:
+    image: mistermur/fwjb-frontend
+    links:
+      - api
+    ports:
+        - "3000:3000"
+    volumes:
+        - /app/node_modules
+        - .:/app
+    stdin_open: true
+    environment:
+        - CHOKIDAR_USEPOLLING=true
     networks:
-      - backend
-    command: sh
+      - webappnetwork
+
 
 networks:
-  backend:
+  webappnetwork:
     driver: bridge

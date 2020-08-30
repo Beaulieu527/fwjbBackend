@@ -3,7 +3,12 @@ module.exports = mongoose => {
     {
       skillId:String,
       name:String,
-      users:[String],
+      users: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "user"
+        }
+      ],
       createdAt: String,
     },
     { timestamps: true }

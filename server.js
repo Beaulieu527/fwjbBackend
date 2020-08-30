@@ -14,10 +14,10 @@ const findOrCreate = require("mongoose-findorcreate");
 const db = require("./model");
 
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: "http://localhost:3000"
 };
 
-// app.use(cors())
+// app.use(cors());
 app.use(cors(corsOptions));
 
 // parse requests of content-type - application/json
